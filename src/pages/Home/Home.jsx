@@ -41,7 +41,7 @@ const Home = () => {
   const getAllNotes = async () => {
     try {
       const res = await axios.get(
-        "https://notes4you-server.onrender.com/api/note/all",
+        "/api/note/all",
         {
           withCredentials: true,
         }
@@ -63,7 +63,7 @@ const Home = () => {
     const noteId = data._id;
     try {
       const res = await axios.delete(
-        "https://notes4you-server.onrender.com/api/note/delete/" + noteId,
+        "/api/note/delete/" + noteId,
         { withCredentials: true }
       );
       if (res.data.success === false) {
@@ -80,7 +80,7 @@ const Home = () => {
   const onSearchNote = async (query) => {
     try {
       const res = await axios.get(
-        "https://notes4you-server.onrender.com/api/note/search",
+        "/api/note/search",
         {
           params: { query },
           withCredentials: true,
@@ -105,7 +105,7 @@ const Home = () => {
     const noteId = noteData._id;
     try {
       const res = await axios.put(
-        "https://notes4you-server.onrender.com/api/note/update-Note-Pinned/" +
+        "/api/note/update-Note-Pinned/" +
           noteId,
         { isPinned: !noteData.isPinned },
         { withCredentials: true }

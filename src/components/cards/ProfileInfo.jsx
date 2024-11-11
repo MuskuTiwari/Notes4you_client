@@ -4,6 +4,8 @@ import { getInitials } from "../../utils/helper";
 const ProfileInfo = ({ OnLogout, userInfo }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  console.log(userInfo); // Debugging userInfo
+
   return (
     <div className="flex justify-end items-center lg:gap-4 md:gap-3 gap-1 ml-2">
       {/* Profile Circle */}
@@ -12,7 +14,7 @@ const ProfileInfo = ({ OnLogout, userInfo }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {getInitials(userInfo?.username)}
+        {getInitials(userInfo?.username)} {/* Show initials */}
       </div>
 
       {/* Username (visible on larger screens) */}

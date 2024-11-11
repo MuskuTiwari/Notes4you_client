@@ -4,7 +4,7 @@ import ProfileInfo from "./cards/ProfileInfo";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axios from "axios"; // Make sure Axios is imported
+import axios from "axios";
 import { toast } from "react-toastify";
 import { FiMenu } from "react-icons/fi";
 import {
@@ -34,12 +34,9 @@ function Navbar({ userInfo, handleClearSearch, onSearchNote }) {
     try {
       dispatch(signoutStart());
 
-      const res = await axios.post(
-        "https://notes4you-server.onrender.com/api/auth/signout",
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.post("/api/auth/signout", {
+        withCredentials: true,
+      });
 
       if (res.data.success === false) {
         dispatch(signoutFailure(res.data.message));
