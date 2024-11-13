@@ -1,21 +1,18 @@
-export const getInitials = (name) =>{
-    if (!name) return ""
+export const getInitials = (name) => {
+  if (!name) return "";
 
-    const words = name.split(" ")
+  const words = name.split(" ");
 
-    let intials = " "
+  let intials = " ";
 
-    for (let i=0 ; i<Math.min(words.length, 2); i++){
-      intials += words[i][0]
-    }
-    return intials.toUpperCase(
-        
-    )
-}
+  for (let i = 0; i < Math.min(words.length, 2); i++) {
+    intials += words[i][0];
+  }
+  return intials.toUpperCase();
+};
 
+export const validateEmail = (email) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const validateEmail = (email) =>{
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-  return regex.test(email)
-}
+  return regex.test(email);
+};

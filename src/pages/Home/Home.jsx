@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import NoteCard from "../../components/cards/NoteCard";
-import { MdAdd } from "react-icons/md";
-import Modal from "react-modal";
-import AddEditNotes from "./AddEditNotes";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import axios from "axios";
-import { toast } from "react-toastify";
-import EmptyCard from "../../components/EmptyCard/EmptyCard";
-
+import React, { useEffect, useState } from "react"; 
+import NoteCard from "../../components/cards/NoteCard"; 
+import { MdAdd } from "react-icons/md"; 
+import Modal from "react-modal"; 
+import AddEditNotes from "./AddEditNotes"; 
+import { useSelector } from "react-redux"; 
+import { useNavigate } from "react-router-dom"; 
+import Navbar from "../../components/Navbar"; 
+import axios from "axios"; 
+import { toast } from "react-toastify"; 
+import EmptyCard from "../../components/EmptyCard/EmptyCard"; 
+ 
 const Home = () => {
   const { currentUser, loading, errorDispatch } = useSelector(
     (state) => state.user
@@ -28,24 +28,23 @@ const Home = () => {
   });
 
   useEffect(() => {
-    if (currentUser === null || !currentUser) {
+    if (!currentUser) {
       navigate("/login");
     } else {
-      setUserInfo(currentUser?.rest);
+      setUserInfo(currentUser.rest || currentUser);
+      // console.log("Updated userInfo:", currentUser.rest || currentUser);
+
       getAllNotes();
     }
-  }, []);
+  }, [currentUser, navigate]);
 
   //get all notes
 
   const getAllNotes = async () => {
     try {
-      const res = await axios.get(
-        "/api/note/all",
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.get("/api/note/all", {
+        withCredentials: true,
+      });
       if (res.data.success === false) {
         console.log(res.data);
         return;
@@ -62,10 +61,9 @@ const Home = () => {
   const deleteNote = async (data) => {
     const noteId = data._id;
     try {
-      const res = await axios.delete(
-        "/api/note/delete/" + noteId,
-        { withCredentials: true }
-      );
+      const res = await axios.delete("/api/note/delete/" + noteId, {
+        withCredentials: true,
+      });
       if (res.data.success === false) {
         toast.error(res.data.message);
         return;
@@ -79,13 +77,10 @@ const Home = () => {
   };
   const onSearchNote = async (query) => {
     try {
-      const res = await axios.get(
-        "/api/note/search",
-        {
-          params: { query },
-          withCredentials: true,
-        }
-      );
+      const res = await axios.get("/api/note/search", {
+        params: { query },
+        withCredentials: true,
+      });
       if (res.data.success === false) {
         toast.error(res.data.message);
         return;
@@ -105,8 +100,7 @@ const Home = () => {
     const noteId = noteData._id;
     try {
       const res = await axios.put(
-        "/api/note/update-Note-Pinned/" +
-          noteId,
+        "/api/note/update-Note-Pinned/" + noteId,
         { isPinned: !noteData.isPinned },
         { withCredentials: true }
       );
@@ -163,7 +157,8 @@ const Home = () => {
               message={
                 isSearch
                   ? "Oops! No notes found matching your search"
-                  : `Ready to capture your ideas? click the 'Add' button to startnoting down yor thoughts, inspiration and reminders. Let's get started!`
+                  : `Ready to capture your ideas? click the 'Add' button to startnoting down yor thoughts,
+              inspiration and reminders. Let's get started!`
               }
             />
           )}
