@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "https://notes4you-server.onrender.com",
+      "/api": "https://notes4you-server.vercel.app",
     },
   },
 });
